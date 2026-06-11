@@ -1,1 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robótica 2° Ano B</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <span>Robótica 2B</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#assistente">Assistente</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+            </ul>
+            <button id="voice-btn" class="voice-btn" aria-label="Ativar Assistente de Voz">
+                <i class="fas fa-headset"></i>
+            </button>
+        </div>
+    </nav>
 
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Robótica 2° Ano B</h1>
+            <p>Explorando o mundo da tecnologia, automação e inclusão</p>
+            <div class="hero-buttons">
+                <a href="#projetos" class="btn primary">Ver Projetos</a>
+                <button onclick="startVoiceAssistant()" class="btn secondary">
+                    <i class="fas fa-microphone"></i> Falar com Assistente
+                </button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <i class="fas fa-robot fa-10x"></i>
+        </div>
+    </section>
+
+    <!-- Projetos -->
+    <section id="projetos" class="section">
+        <div class="container">
+            <h2>Nossos Projetos</h2>
+            <div class="projects-grid">
+                
+                <!-- Projeto 1 -->
+                <div class="project-card">
+                    <div class="card-image">
+                        <i class="fas fa-lightbulb fa-5x"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>LED Fade-In</h3>
+                        <p>Projeto inicial com Arduino IDE. Criamos um LED que acende gradualmente (fade-in) controlado por PWM.</p>
+                        <ul>
+                            <li>Componentes: Arduino Uno, LED, resistor</li>
+                            <li>Programação: Arduino IDE (C++)</li>
+                            <li>Aprendizado: PWM, loops e variáveis</li>
+                        </ul>
+                        <a href="#" class="project-link">Ver Código <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Projeto 2 -->
+                <div class="project-card">
+                    <div class="card-image">
+                        <i class="fas fa-palette fa-5x"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>LED RGB</h3>
+                        <p>Controle de cores com LED RGB usando Arduino IDE. Misturamos vermelho, verde e azul para criar diversas cores.</p>
+                        <ul>
+                            <li>Componentes: Arduino Uno, LED RGB, resistores</li>
+                            <li>Programação: Funções e analogWrite</li>
+                            <li>Aprendizado: Cores RGB e controle analógico</li>
+                        </ul>
+                        <a href="#" class="project-link">Ver Código <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Projeto 3 -->
+                <div class="project-card">
+                    <div class="card-image">
+                        <i class="fas fa-bullseye fa-5x"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Sensor de Distância</h3>
+                        <p>Projeto com sensor ultrassônico HC-SR04 para medir distâncias e acionar LEDs ou buzzers conforme a proximidade.</p>
+                        <ul>
+                            <li>Componentes: Arduino, HC-SR04, LEDs</li>
+                            <li>Programação: Leitura de sensores e condicionais</li>
+                            <li>Aprendizado: Interação com o ambiente físico</li>
+                        </ul>
+                        <a href="#" class="project-link">Ver Código <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assistente Auditivo -->
+    <section id="assistente" class="section bg-dark">
+        <div class="container">
+            <h2>Assistente Auditivo para Deficientes Visuais</h2>
+            <div class="assistente-container">
+                <div class="assistente-info">
+                    <h3>Como funciona?</h3>
+                    <p>Nosso assistente usa a API de síntese de voz do navegador para ler todo o conteúdo da página em voz alta, tornando o site totalmente acessível.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-volume-up"></i>
+                            <span>Leitura completa da página</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-microphone"></i>
+                            <span>Comandos de voz simples</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-universal-access"></i>
+                            <span>Alta acessibilidade</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="assistente-demo">
+                    <button onclick="readPageContent()" class="btn large">
+                        <i class="fas fa-play"></i> Ler Toda a Página
+                    </button>
+                    <button onclick="stopVoice()" class="btn secondary large">
+                        <i class="fas fa-stop"></i> Parar Leitura
+                    </button>
+                    <p class="demo-text">Clique no botão do fone de ouvido na barra superior para ativar o assistente rápido.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="section">
+        <div class="container">
+            <h2>Sobre Nós</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Somos a turma do 2° Ano B do curso de Robótica. Este projeto foi desenvolvido com o objetivo de aprender eletrônica, programação e promover a inclusão através da tecnologia.</p>
+                    <p>Utilizamos a plataforma Arduino para criar projetos práticos que desenvolvem habilidades em lógica de programação e prototipagem.</p>
+                    <p>O Assistente Auditivo foi adicionado especialmente para tornar nosso portfólio acessível a todos os públicos.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <h3>2° Ano B</h3>
+                        <p>Turma de Robótica</p>
+                    </div>
+                    <div class="stat">
+                        <h3>3</h3>
+                        <p>Projetos Realizados</p>
+                    </div>
+                    <div class="stat">
+                        <h3>100%</h3>
+                        <p>Acessibilidade</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Robótica 2° Ano B - Todos os direitos reservados</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
