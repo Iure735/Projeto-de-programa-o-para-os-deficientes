@@ -40,7 +40,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #22d3ee;
 }
@@ -99,7 +99,7 @@ body {
 }
 
 .hero h1 {
-    font-size: 4rem;
+    font-size: 5rem;
     margin-bottom: 1rem;
     background: linear-gradient(to right, #67e8f9, #a5f3fc);
     -webkit-background-clip: text;
@@ -107,7 +107,7 @@ body {
 }
 
 .hero p {
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     margin-bottom: 2rem;
     color: #cbd5e1;
 }
@@ -167,7 +167,7 @@ body {
 
 h2 {
     text-align: center;
-    font-size: 2.8rem;
+    font-size: 3.2rem;
     margin-bottom: 3rem;
     color: #67e8f9;
 }
@@ -202,11 +202,13 @@ h2 {
 }
 
 .card-content {
+    font-size: 1.2rem;
     padding: 1.8rem;
 }
 
 .card-content h3 {
     color: #67e8f9;
+    font-size: 1.6rem;
     margin-bottom: 1rem;
 }
 
@@ -239,7 +241,7 @@ h2 {
     display: flex;
     align-items: center;
     gap: 15px;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
 }
 
 .feature i {
@@ -257,7 +259,7 @@ h2 {
 
 .btn.large {
     padding: 18px 40px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin: 10px;
 }
 
