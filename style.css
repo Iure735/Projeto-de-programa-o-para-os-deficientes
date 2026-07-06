@@ -86,24 +86,23 @@ body {
 
 /* Hero */
 .hero {
-    min-height: 100vh;
     display: flex;
     align-items: center;
-    color: white;
-    padding-top: 80px;
+    justify-content: space-between;
 }
 
-.hero-content {
-    flex: 1;
-    padding-right: 2rem;
+.hero-content{
+    flex:2;
 }
 
-.hero h1 {
-    font-size: 5rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(to right, #67e8f9, #a5f3fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.hero-image{
+    flex:1;
+    text-align:center;
+}
+
+.hero h1{
+    font-size: clamp(3.8rem, 6vw, 5rem);
+    line-height:1.1;
 }
 
 .hero p {
