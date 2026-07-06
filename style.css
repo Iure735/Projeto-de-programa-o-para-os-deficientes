@@ -334,3 +334,8 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+.project-gif{
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+}
