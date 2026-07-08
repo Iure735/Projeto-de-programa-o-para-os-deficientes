@@ -16,10 +16,45 @@ function speak(text) {
 }
 
 function readPageContent() {
-    const mainContent = document.body.innerText;
-    speak("Bem-vindo ao site de Robótica do 2º ano B. " + mainContent.substring(0, 1200));
-}
 
+    const texto = `
+    Bem-vindo ao site da turma de Robótica do segundo ano B.
+
+    Este projeto foi desenvolvido com o objetivo de apresentar os trabalhos realizados durante as aulas de robótica e tornar o conteúdo acessível para pessoas com deficiência visual.
+
+    Na seção Projetos você encontrará os seguintes trabalhos:
+
+    Projeto LED Fade-In.
+    Aprendemos a controlar a intensidade de um LED utilizando PWM no Arduino.
+
+    Projeto LED RGB.
+    Exploramos a mistura das cores vermelho, verde e azul utilizando um LED RGB.
+
+    Projeto Arco-Íris.
+    Desenvolvemos um sistema capaz de reproduzir diversas cores através do LED RGB.
+
+    Projeto Disco de Newton.
+    Construímos um disco de Newton acionado por um motor DC para demonstrar a composição da luz branca.
+
+    Projeto Semáforo de Carros.
+    Simulamos o funcionamento de um semáforo utilizando LEDs e programação no Arduino.
+
+    Projeto Sensor de Movimento e Presença.
+    Utilizamos um sensor PIR para detectar movimentos e acionar um LED.
+
+    Projeto Sensor de Gás e Fumaça.
+    Desenvolvemos um sistema de alerta utilizando o sensor MQ-2 e um buzzer.
+
+    Projeto Seguidor de Linha.
+    Construímos um robô capaz de seguir uma linha utilizando sensores infravermelhos.
+
+    Na seção Assistente Auditivo você pode ouvir todo o conteúdo do site utilizando síntese de voz.
+
+    Esperamos que aproveite a visita. Obrigado por conhecer nosso projeto de Robótica do segundo ano B.
+    `;
+
+    speak(texto);
+}
 function stopVoice() {
     if ('speechSynthesis' in window) {
         speechSynthesis.cancel();
