@@ -212,7 +212,7 @@ h2 {
 }
 
 .card-image {
-    height: 220px;
+    height: 260px;
     background: linear-gradient(45deg, #1e2937, #334155);
     display: flex;
     align-items: center;
@@ -335,7 +335,7 @@ footer {
     }
 }
 .project-gif{
-    width: 180px;
-    height: 180px;
+    width: 210px;
+    height: 210px;
     object-fit: contain;
 }
