@@ -248,6 +248,14 @@ h2 {
     gap: 4rem;
     align-items: center;
 }
+.assistente-info p{
+    font-size: 1.4rem;
+    line-height: 1.8;
+}
+.assistente-info h3{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
 
 .features {
     display: flex;
@@ -287,6 +295,11 @@ h2 {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 4rem;
+}
+.about-text p{
+    font-size: 1.4rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
 }
 
 .about-stats {
