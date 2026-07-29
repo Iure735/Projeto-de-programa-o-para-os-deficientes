@@ -1,42 +1,121 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED Fade-In</title>
 
-<meta charset="UTF-8">
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
 
-<title>LED Fade-In</title>
+        body{
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+            background:linear-gradient(135deg,#0f172a 0%,#1e2937 100%);
+            color:#fff;
+            min-height:100vh;
+            padding:40px 20px;
+        }
 
-<style>
+        .container{
+            max-width:1000px;
+            margin:auto;
+        }
 
-body{
-    background:#0f172a;
-    color:white;
-    font-family:Consolas, monospace;
-    padding:40px;
-}
+        .voltar{
+            display:inline-block;
+            margin-bottom:30px;
+            text-decoration:none;
+            color:#67e8f9;
+            font-weight:bold;
+            transition:.3s;
+        }
 
-h1{
-    color:#67e8f9;
-}
+        .voltar:hover{
+            color:white;
+        }
 
-pre{
-    background:#1e2937;
-    padding:20px;
-    border-radius:10px;
-    border-left:5px solid #67e8f9;
-    overflow:auto;
-}
+        h1{
+            text-align:center;
+            color:#67e8f9;
+            margin-bottom:30px;
+            font-size:2.5rem;
+        }
 
-</style>
+        .gif{
+            display:flex;
+            justify-content:center;
+            margin-bottom:40px;
+        }
+
+        .gif img{
+            width:100%;
+            max-width:500px;
+            border-radius:15px;
+            border:3px solid #67e8f9;
+            box-shadow:0 10px 25px rgba(0,0,0,.35);
+        }
+
+        h2{
+            color:#67e8f9;
+            margin-bottom:20px;
+        }
+
+        pre{
+            background:#111827;
+            border:1px solid #334155;
+            border-left:5px solid #67e8f9;
+            border-radius:12px;
+            padding:25px;
+            overflow-x:auto;
+            font-size:15px;
+            line-height:1.6;
+            white-space:pre-wrap;
+        }
+
+        code{
+            font-family:Consolas,monospace;
+        }
+
+        @media(max-width:768px){
+
+            h1{
+                font-size:2rem;
+            }
+
+            .gif img{
+                max-width:100%;
+            }
+
+            pre{
+                font-size:13px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
 <body>
 
-<h1>Projeto LED Fade-In</h1>
+<div class="container">
 
-<p>Código utilizado no projeto:</p>
+    <a href="../index.html" class="voltar">
+        ⬅ Voltar ao Portfólio
+    </a>
+
+    <h1>Projeto LED Fade-In</h1>
+
+    <div class="gif">
+        <img src="../img/ledfadein.gif" alt="Projeto LED Fade-In">
+    </div>
+
+    <h2>Código Arduino</h2>
 
 <pre><code>
 
@@ -71,7 +150,10 @@ void loop() {
   }
 }
 }
+
 </code></pre>
+
+</div>
 
 </body>
 </html>
