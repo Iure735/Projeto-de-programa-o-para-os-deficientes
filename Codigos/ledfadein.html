@@ -1,1 +1,77 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+
+<title>LED Fade-In</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Consolas, monospace;
+    padding:40px;
+}
+
+h1{
+    color:#67e8f9;
+}
+
+pre{
+    background:#1e2937;
+    padding:20px;
+    border-radius:10px;
+    border-left:5px solid #67e8f9;
+    overflow:auto;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Projeto LED Fade-In</h1>
+
+<p>Código utilizado no projeto:</p>
+
+<pre><code>
+
+/*******************************************************/
+/* Aula 19 - LED Fade-In                               */
+/* Programação da alteração do brilho de um LED com    */
+/* efeito Fade-In, utilizando uma porta PWM.           */
+/*******************************************************/
+
+/* Define a porta PWM 11 como pino do LED.             */
+int pinoLed = 11;
+int incremento = 2; /* Incremento do brilho do LED.    */
+int brilho = 0; /* Variável do brilho do LED.          */
+void setup() {
+  /* Define o pino do LED como saída.                  */
+  pinMode(pinoLed, OUTPUT);
+}
+void loop() {
+  /* Incrementa o brilho do LED de 0 a 255. */
+ 
+    for (brilho=255; brilho >= 1; brilho -= incremento) {
+    /* Ajusta a intensidade do brilho a cada incremento. */
+    analogWrite(pinoLed, brilho);
+    /* Aguarda 100 milissegundos para aumentar o brilho. */
+    delay(20);
+      
+    for (brilho=0; brilho <= 255; brilho += incremento) {
+    /* Ajusta a intensidade do brilho a cada incremento. */
+    analogWrite(pinoLed, brilho);
+    /* Aguarda 100 milissegundos para aumentar o brilho. */
+    delay(20);
+  }
+}
+}
+</code></pre>
+
+</body>
+</html>
