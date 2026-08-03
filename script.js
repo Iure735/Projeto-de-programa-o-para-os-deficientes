@@ -45,18 +45,27 @@ function startVoice(){
 // ===============================
 // Scroll suave
 // ===============================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        if (this.getAttribute('href') !== '#') {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        }
+document.querySelectorAll(
+".feature,.about-text,.stat,h1,h2,h3,p,li,.btn"
+)
+.forEach(item=>{
+
+    item.addEventListener("mouseenter",()=>{
+
+        if(item.closest(".project-card")) return;
+
+        speechSynthesis.cancel();
+
+        clearTimeout(tempoLeitura);
+
+        tempoLeitura=setTimeout(()=>{
+
+            lerTexto(item.innerText);
+
+        },500);
+
     });
+
 });
 
 window.addEventListener('load', () => {
