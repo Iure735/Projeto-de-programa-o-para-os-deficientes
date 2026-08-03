@@ -1,1 +1,178 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED RGB</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+            background:linear-gradient(135deg,#0f172a 0%,#1e2937 100%);
+            color:#fff;
+            min-height:100vh;
+            padding:40px 20px;
+        }
+
+        .container{
+            max-width:1000px;
+            margin:auto;
+        }
+
+        .voltar{
+            display:inline-block;
+            margin-bottom:30px;
+            text-decoration:none;
+            color:#67e8f9;
+            font-weight:bold;
+            transition:.3s;
+        }
+
+        .voltar:hover{
+            color:white;
+        }
+
+        h1{
+            text-align:center;
+            color:#67e8f9;
+            margin-bottom:30px;
+            font-size:2.5rem;
+        }
+
+        .gif{
+            display:flex;
+            justify-content:center;
+            margin-bottom:40px;
+        }
+
+        .gif img{
+            width:100%;
+            max-width:500px;
+            border-radius:15px;
+            border:3px solid #67e8f9;
+            box-shadow:0 10px 25px rgba(0,0,0,.35);
+        }
+
+        h2{
+            color:#67e8f9;
+            margin-bottom:20px;
+        }
+
+        pre{
+            background:#111827;
+            border:1px solid #334155;
+            border-left:5px solid #67e8f9;
+            border-radius:12px;
+            padding:25px;
+            overflow-x:auto;
+            font-size:15px;
+            line-height:1.6;
+            white-space:pre-wrap;
+        }
+
+        code{
+            font-family:Consolas,monospace;
+        }
+
+        @media(max-width:768px){
+
+            h1{
+                font-size:2rem;
+            }
+
+            .gif img{
+                max-width:100%;
+            }
+
+            pre{
+                font-size:13px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="../index.html" class="voltar">
+        ⬅ Voltar ao site
+    </a>
+
+    <h1>Projeto LED RGB</h1>
+
+    <div class="gif">
+        <img src="../img/ledrgb.gif" alt="Projeto LED Fade-In">
+    </div>
+
+    <h2>Código Arduino</h2>
+
+<pre><code>
+
+// LED RGB
+const int redPin = 9;
+const int bluePin = 11;
+
+// Potenciômetro
+const int potPin = A0;
+
+// Botão
+const int buttonPin = 2;
+
+bool modo = false; // false = vermelho, true = azul
+bool ultimoEstado = HIGH;
+
+void setup() {
+  pinMode(redPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+
+  pinMode(buttonPin, INPUT_PULLUP);
+}
+
+void loop() {
+
+  // leitura do botão
+  bool estadoAtual = digitalRead(buttonPin);
+
+  // detecta clique (HIGH -> LOW)
+  if (ultimoEstado == HIGH && estadoAtual == LOW) {
+    modo = !modo;
+    delay(50); // debounce
+  }
+
+  ultimoEstado = estadoAtual;
+
+  // brilho do potenciômetro
+  int brilho = map(analogRead(potPin), 0, 1023, 0, 255);
+
+  if (!modo) {
+    // 🔴 perigo
+    analogWrite(redPin, brilho);
+    analogWrite(bluePin, 0);
+  } 
+  else {
+    // 🔵 saída segura
+    analogWrite(redPin, 0);
+    analogWrite(bluePin, brilho);
+  }
+
+  delay(10);
+}
+
+</code></pre>
+
+</div>
+
+</body>
+</html>
