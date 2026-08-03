@@ -1,1 +1,161 @@
 
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disco de Newton</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+            background:linear-gradient(135deg,#0f172a 0%,#1e2937 100%);
+            color:#fff;
+            min-height:100vh;
+            padding:40px 20px;
+        }
+
+        .container{
+            max-width:1000px;
+            margin:auto;
+        }
+
+        .voltar{
+            display:inline-block;
+            margin-bottom:30px;
+            text-decoration:none;
+            color:#67e8f9;
+            font-weight:bold;
+            transition:.3s;
+        }
+
+        .voltar:hover{
+            color:white;
+        }
+
+        h1{
+            text-align:center;
+            color:#67e8f9;
+            margin-bottom:30px;
+            font-size:2.5rem;
+        }
+
+        .gif{
+            display:flex;
+            justify-content:center;
+            margin-bottom:40px;
+        }
+
+        .gif img{
+            width:100%;
+            max-width:500px;
+            border-radius:15px;
+            border:3px solid #67e8f9;
+            box-shadow:0 10px 25px rgba(0,0,0,.35);
+        }
+
+        h2{
+            color:#67e8f9;
+            margin-bottom:20px;
+        }
+
+        pre{
+            background:#111827;
+            border:1px solid #334155;
+            border-left:5px solid #67e8f9;
+            border-radius:12px;
+            padding:25px;
+            overflow-x:auto;
+            font-size:15px;
+            line-height:1.6;
+            white-space:pre-wrap;
+        }
+
+        code{
+            font-family:Consolas,monospace;
+        }
+
+        @media(max-width:768px){
+
+            h1{
+                font-size:2rem;
+            }
+
+            .gif img{
+                max-width:100%;
+            }
+
+            pre{
+                font-size:13px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="../index.html" class="voltar">
+        ⬅ Voltar ao site
+    </a>
+
+    <h1>Projeto Disco de Newton</h1>
+
+    <div class="gif">
+        <img src="../img/disconewton.gif" alt="Projeto LED Fade-In">
+    </div>
+
+    <h2>Código Arduino</h2>
+
+<pre><code>
+  
+// Gerado por mBlock5 para Robótica Paraná
+// Os códigos fazem você feliz!
+
+#include &lt;Arduino.h&gt;
+#include &lt;Wire.h&gt;
+#include &lt;SoftwareSerial.h&gt;
+
+int pinPot = A5;
+
+void _delay(float seconds) {
+  long endTime = millis() + seconds * 1000;
+  while(millis() &lt endTime) _loop();
+}
+
+void setup() {
+  pinMode(6,OUTPUT);
+  while(1) {
+    analogWrite(6,map(analogRead(pinPot),0,1023,0,255));
+
+  	_loop();
+  }
+
+}
+
+void _loop() {
+}
+
+void loop() {
+  _loop();
+}
+
+
+</code></pre>
+
+</div>
+
+</body>
+</html>
