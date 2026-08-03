@@ -60,7 +60,8 @@ document.querySelectorAll(
 
         tempoLeitura=setTimeout(()=>{
 
-            lerTexto(item.innerText);
+           const texto = item.getAttribute("aria-label") || item.innerText;
+lerTexto(texto);
 
         },500);
 
