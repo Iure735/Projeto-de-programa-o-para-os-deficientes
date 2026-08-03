@@ -1,33 +1,46 @@
 // ===============================
 // Síntese de Voz
 // ===============================
-let utterance = null;
-
-function speak(text) {
-    if ('speechSynthesis' in window) {
-        if (utterance) speechSynthesis.cancel();
-        
-        utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'pt-BR';
-        utterance.rate = 1.1;
-        utterance.pitch = 1;
-        speechSynthesis.speak(utterance);
-    } else {
-        alert("Seu navegador não suporta síntese de voz.");
-    }
-}
-
-function stopVoice() {
-    if ('speechSynthesis' in window) {
-        speechSynthesis.cancel();
-    }
-}
-
 // ===============================
-// Assistente de voz (botão do fone)
+// LEITURA AUTOMÁTICA
 // ===============================
 
+let tempoLeitura;
+let leituraAtiva = true;
 
+// Lê um texto
+function lerTexto(texto){
+
+    if(!leituraAtiva) return;
+
+    speechSynthesis.cancel();
+
+    const fala = new SpeechSynthesisUtterance(texto);
+
+    fala.lang = "pt-BR";
+    fala.rate = 1;
+    fala.pitch = 1;
+    fala.volume = 1;
+
+    speechSynthesis.speak(fala);
+
+}
+
+// Botão Parar Leitura
+function stopVoice(){
+
+    leituraAtiva = false;
+
+    speechSynthesis.cancel();
+
+}
+
+// Caso queira ativar novamente futuramente
+function startVoice(){
+
+    leituraAtiva = true;
+
+}
 
 // ===============================
 // Scroll suave
@@ -50,51 +63,7 @@ window.addEventListener('load', () => {
     console.log('%cSite de Robótica 2B carregado com sucesso! 🚀', 'color: #67e8f9; font-size: 14px;');
 });
 
-// ===============================
-// Abrir código em nova janela
-// ===============================
-function abrirCodigo(titulo, codigo) {
-    const janela = window.open('', '_blank', 'width=750,height=550,scrollbars=yes,resizable=yes');
-    
-    janela.document.write(`
-        <!DOCTYPE html>
-        <html lang="pt-BR">
-        <head>
-            <meta charset="UTF-8">
-            <title>${titulo} - Código Arduino</title>
-            <style>
-                * { margin: 0; padding: 0; box-sizing: border-box; }
-                body {
-                    font-family: Consolas, Monaco, 'Courier New', monospace;
-                    background: #0f172a;
-                    color: #e2e8f0;
-                    padding: 25px;
-                }
-                h2 {
-                    color: #67e8f9;
-                    margin-bottom: 15px;
-                    font-family: 'Segoe UI', sans-serif;
-                }
-                pre {
-                    background: #1e2937;
-                    padding: 20px;
-                    border-radius: 12px;
-                    border: 1px solid #334155;
-                    overflow-x: auto;
-                    white-space: pre-wrap;
-                    line-height: 1.6;
-                    font-size: 14px;
-                }
-            </style>
-        </head>
-        <body>
-            <h2>${titulo}</h2>
-            <pre>${codigo}</pre>
-        </body>
-        </html>
-    `);
-    janela.document.close();
-}
+
 
 // ===============================
 // Códigos dos projetos
@@ -209,10 +178,50 @@ void loop() {
   delay(2000);
 }`;
 
-const codigoSemaforo = `// Semáforo de carros
-// Dois semáforos com LEDs
 
-// Semáforo 1
-int verde1 = 2;
-int amarelo1 = 3;
-int
+
+// ==============================
+// LEITURA AUTOMÁTICA DOS CARDS
+// ==============================
+
+document.querySelectorAll(".project-card").forEach(card=>{
+
+    card.addEventListener("mouseenter",()=>{
+
+        clearTimeout(tempoLeitura);
+
+        tempoLeitura=setTimeout(()=>{
+
+            lerTexto(card.innerText);
+
+        },500);
+
+    });
+
+});
+
+
+// ==============================
+// LEITURA DOS DEMAIS TEXTOS
+// ==============================
+
+document.querySelectorAll(
+".feature,.about-text,.stat,h1,h2,h3,p,li"
+)
+.forEach(item=>{
+
+    item.addEventListener("mouseenter",()=>{
+
+        if(item.closest(".project-card")) return;
+
+        clearTimeout(tempoLeitura);
+
+        tempoLeitura=setTimeout(()=>{
+
+            lerTexto(item.innerText);
+
+        },500);
+
+    });
+
+});
