@@ -383,6 +383,11 @@ footer {
     margin-bottom: 20px;
     transition: 0.3s;
 }
+.project-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
 .copy-btn:hover {
     background: #67e8f9;
