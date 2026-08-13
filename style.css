@@ -371,3 +371,20 @@ footer {
     height: 240px;
     object-fit: contain;
 }
+.copy-btn {
+    background: #22d3ee;
+    color: #0f172a;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.copy-btn:hover {
+    background: #67e8f9;
+    transform: scale(1.05);
+}
