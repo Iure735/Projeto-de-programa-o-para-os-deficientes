@@ -102,7 +102,7 @@ document.querySelectorAll(".project-card").forEach(card=>{
 // ==============================
 
 document.querySelectorAll(
-".feature,.about-text,.stat,h1,h2,h3,p,li"
+".feature,.about-text,.stat,h1,h2,h3,p,li,.btn,.copy-btn"
 )
 .forEach(item=>{
 
