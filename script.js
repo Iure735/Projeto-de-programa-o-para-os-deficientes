@@ -124,22 +124,52 @@ document.querySelectorAll(
 
 function copiarCodigo() {
 
-    const codigo = document.getElementById("codigoProjeto").innerText;
-    const botao = document.querySelector(".copy-btn");
+    const bloco = document.getElementById("codigoProjeto");
 
-    navigator.clipboard.writeText(codigo)
-        .then(() => {
+    if (!bloco) {
+        alert("Código não encontrado.");
+        return;
+    }
 
-            botao.innerHTML = '<i class="fas fa-check"></i> Código Copiado!';
+    const codigo = bloco.innerText;
+
+    const areaTexto = document.createElement("textarea");
+
+    areaTexto.value = codigo;
+
+    areaTexto.style.position = "fixed";
+    areaTexto.style.left = "-9999px";
+    areaTexto.style.top = "0";
+
+    document.body.appendChild(areaTexto);
+
+    areaTexto.focus();
+    areaTexto.select();
+
+    try {
+
+        document.execCommand("copy");
+
+        const botao = document.querySelector(".copy-btn");
+
+        if (botao) {
+
+            botao.innerHTML =
+                '<i class="fas fa-check"></i> Código Copiado!';
 
             setTimeout(() => {
-                botao.innerHTML = '<i class="fas fa-copy"></i> Copiar Código';
+
+                botao.innerHTML =
+                    '<i class="fas fa-copy"></i> Copiar Código';
+
             }, 2000);
+        }
 
-        })
-        .catch(() => {
+    } catch (erro) {
 
-            alert("Não foi possível copiar o código.");
+        alert("Não foi possível copiar o código.");
 
-        });
+    }
+
+    document.body.removeChild(areaTexto);
 }
