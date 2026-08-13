@@ -121,3 +121,25 @@ document.querySelectorAll(
     });
 
 });
+
+function copiarCodigo() {
+
+    const codigo = document.getElementById("codigoProjeto").innerText;
+    const botao = document.querySelector(".copy-btn");
+
+    navigator.clipboard.writeText(codigo)
+        .then(() => {
+
+            botao.innerHTML = '<i class="fas fa-check"></i> Código Copiado!';
+
+            setTimeout(() => {
+                botao.innerHTML = '<i class="fas fa-copy"></i> Copiar Código';
+            }, 2000);
+
+        })
+        .catch(() => {
+
+            alert("Não foi possível copiar o código.");
+
+        });
+}
