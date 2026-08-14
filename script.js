@@ -160,7 +160,7 @@ function copiarCodigo() {
             setTimeout(() => {
 
                 botao.innerHTML =
-                    '<i class="fas fa-copy"></i> Copiar Código';
+                    '<i class="fas fa-copy"></i> Clique para copiar o Código';
 
             }, 2000);
         }
