@@ -123,134 +123,262 @@
 </button>
 <pre id="codigoProjeto"><code>
 
-/********************************************************/
-/* Aula 33 - Robô Seguidor de Linha                     */
-/* Programação: Abaixo um exemplo de código que         */
-/* controlará o robô para seguir uma linha. É utilizado */
-/* dois módulos sensores de obstáculo IR para detectar  */
-/* a linha e a ponte H L298n para fazer o controle dos  */
-/* motores DC.                                          */
-/********************************************************/
+// =====================================================
+// ROBÔ SEGUIDOR DE LINHA PRETA
+// =====================================================
+//
+// A0 = sensor esquerdo
+// A1 = sensor direito
+//
+// PRETO  = valor > 290
+// BRANCO = valor <= 290
+//
+// PRETO + PRETO   -> frente
+// PRETO + BRANCO  -> curva fechada esquerda
+// BRANCO + PRETO  -> curva fechada direita
+// BRANCO + BRANCO -> continua o último movimento
+// =====================================================
 
-/*=====ATENÇÃO!======== ATENÇÃO! =========ATENÇÃO!======*/
-/* Antes de compilar/carregar o código, você deverá     */
-/* selecionar qual a cor da linha que o robô deverá     */
-/* seguir, para isto, descomente (removendo o //) de    */
-/* uma das duas linhas abaixo.                          */
-//String CorLinha = "preta";        /* Linha PRETA      */
-//String CorLinha = "branca";       /* Linha BRANCA     */
-/*=====ATENÇÃO!======== ATENÇÃO! =========ATENÇÃO!======*/
 
-/* Definições dos pinos IN1 a IN4 da ponte H.           */
-/* Para controlar a velocidade dos motores, esses pinos */
-/* deverão ser conectados em portas com o recurso PWM.  */
-#define IN1 10 // Porta PWM ~10
-#define IN2 9  // Porta PWM ~9
-#define IN3 6  // Porta PWM ~6
-#define IN4 5  // Porta PWM ~5
+// ===============================
+// MOTOR ESQUERDO
+// ===============================
+#define IN1 10
+#define IN2 9
 
-#define Velocidade 180
 
-/* Define os pinos 2 e 3 para os sensores IR            */
-#define Pino_Sensor_Direita 2
-#define Pino_Sensor_Esquerda 3
+// ===============================
+// MOTOR DIREITO
+// ===============================
+#define IN3 6
+#define IN4 5
 
-/* Variáveis para armazenar os dados dos sensores.      */
-int Sensor_Direita, Sensor_Esquerda;
 
-/* Variáveis auxiliares.                                */
-int detectou, naodetectou;
+// ===============================
+// SENSORES
+// ===============================
+#define SENSOR_ESQUERDO A0
+#define SENSOR_DIREITO A1
 
-/* Criando as funções de controle dos motores.          */
 
-/* Move para frente.                                    */
-void Frente() {
-  /* Motor A */
-  analogWrite(IN1, Velocidade);
-  analogWrite(IN2, 0);
-  /* Motor B */
-  analogWrite(IN3, Velocidade);
-  analogWrite(IN4, 0);
+// ===============================
+// CONFIGURAÇÕES
+// ===============================
+#define LIMITE 290
+
+#define VELOCIDADE 75
+#define VELOCIDADE_CURVA 75
+
+
+// =====================================================
+// ÚLTIMO MOVIMENTO
+// =====================================================
+//
+// 0 = frente
+// 1 = esquerda
+// 2 = direita
+//
+int ultimoMovimento = 0;
+
+
+// =====================================================
+// MOTOR ESQUERDO PARA FRENTE
+// =====================================================
+
+void motorEsquerdo(int velocidade) {
+
+  analogWrite(IN1, velocidade);
+  digitalWrite(IN2, LOW);
 }
 
-/* Giro no sentido horário.                             */
-void GiroHorario() {
-  /* Motor A */
-  analogWrite(IN1, Velocidade);
-  analogWrite(IN2, 0);
-  /* Motor B */
-  analogWrite(IN3, 0);
-  analogWrite(IN4, Velocidade);
+
+// =====================================================
+// MOTOR DIREITO PARA FRENTE
+// =====================================================
+
+void motorDireito(int velocidade) {
+
+  digitalWrite(IN3, LOW);
+  analogWrite(IN4, velocidade);
 }
 
-/* Giro no sentido anti-horário.                        */
-void GiroAntiHorario() {
-  /* Motor A */
-  analogWrite(IN1, 0);
-  analogWrite(IN2, Velocidade);
-  /* Motor B */
-  analogWrite(IN3, Velocidade);
-  analogWrite(IN4, 0);
+
+// =====================================================
+// PARAR ESQUERDO
+// =====================================================
+
+void pararEsquerdo() {
+
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
 }
 
-/* Para o chassi.                                       */
-void Pare() {
-  /* Motor A */
-  analogWrite(IN1, 0);
-  analogWrite(IN2, 0);
-  /* Motor B */
-  analogWrite(IN3, 0);
-  analogWrite(IN4, 0);
+
+// =====================================================
+// PARAR DIREITO
+// =====================================================
+
+void pararDireito() {
+
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
 }
+
+
+// =====================================================
+// PARAR OS DOIS
+// =====================================================
+
+void pararMotores() {
+
+  pararEsquerdo();
+  pararDireito();
+}
+
+
+// =====================================================
+// SETUP
+// =====================================================
 
 void setup() {
-  /* Define o modo de detecção da linha de acordo com a */
-  /* cor escolhida.                                     */
-  if (CorLinha == "preta") {
-    detectou = 1;
-    naodetectou = 0;
-  } else {
-    detectou = 0;
-    naodetectou = 1;
-  }
-  
+
   Serial.begin(9600);
-  pinMode(Pino_Sensor_Direita, INPUT);
-  pinMode(Pino_Sensor_Esquerda, INPUT);
-  /* Inicia com os motores parados.                     */
-  Pare();
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+
+  pinMode(SENSOR_ESQUERDO, INPUT);
+  pinMode(SENSOR_DIREITO, INPUT);
+
+  pararMotores();
+
+  Serial.println("SEGUIDOR DE LINHA INICIADO");
 }
+
+
+// =====================================================
+// LOOP
+// =====================================================
 
 void loop() {
-  /* Sensores realizam a leitura                        */
-  Sensor_Direita = digitalRead(Pino_Sensor_Direita);
-  Sensor_Esquerda = digitalRead(Pino_Sensor_Esquerda);
-  /* Nenhum sensor detectou a linha                     */
-  if (Sensor_Esquerda == naodetectou && Sensor_Direita == naodetectou) {
-    Frente();
-    Serial.println("Nenhum sensor detectou a linha.");
-  }
-  /* Sensor da direita detectou a linha */
-  if (Sensor_Esquerda == naodetectou && Sensor_Direita == detectou) {
-    GiroHorario();
-    /* Pequena pausa para garantir a correção da trajetória.  */
-    delay(50);    
-    Serial.println("Somente o sensor da Direita detectou a linha.");
-  }
-  /* Sensor da esquerda detectou a linha                      */
-  if (Sensor_Esquerda == detectou && Sensor_Direita == naodetectou) {
-    GiroAntiHorario();
-    /* Pequena pausa para garantir a correção da trajetória.  */
-    delay(50);
-    Serial.println("Somente o sensor da Esquerda detectou a linha.");
-  }
-  /* Os dois sensores detectaram a linha                      */
-  if (Sensor_Esquerda == detectou && Sensor_Direita == detectou) {
-    Pare();
-    Serial.println("Ambos sensores detectaram a linha.");
-  }
-}
 
+  int A0valor = analogRead(SENSOR_ESQUERDO);
+  int A1valor = analogRead(SENSOR_DIREITO);
+
+  bool pretoEsquerdo = A0valor > LIMITE;
+  bool pretoDireito  = A1valor > LIMITE;
+
+
+  // ===================================================
+  // PRETO + PRETO
+  // FRENTE
+  // ===================================================
+
+  if (pretoEsquerdo && pretoDireito) {
+
+    motorEsquerdo(VELOCIDADE);
+    motorDireito(VELOCIDADE);
+
+    // Guarda que o último movimento foi para frente
+    ultimoMovimento = 0;
+
+    Serial.println("PRETO + PRETO -> FRENTE");
+  }
+
+
+  // ===================================================
+  // PRETO + BRANCO
+  // CURVA FECHADA PARA ESQUERDA
+  // ===================================================
+
+  else if (pretoEsquerdo && !pretoDireito) {
+
+    pararEsquerdo();
+    motorDireito(VELOCIDADE_CURVA);
+
+    // Guarda a última direção
+    ultimoMovimento = 1;
+
+    Serial.println("PRETO + BRANCO -> ESQUERDA");
+  }
+
+
+  // ===================================================
+  // BRANCO + PRETO
+  // CURVA FECHADA PARA DIREITA
+  // ===================================================
+
+  else if (!pretoEsquerdo && pretoDireito) {
+
+    motorEsquerdo(VELOCIDADE_CURVA);
+    pararDireito();
+
+    // Guarda a última direção
+    ultimoMovimento = 2;
+
+    Serial.println("BRANCO + PRETO -> DIREITA");
+  }
+
+
+  // ===================================================
+  // BRANCO + BRANCO
+  // PERDEU A LINHA
+  //
+  // CONTINUA O ÚLTIMO MOVIMENTO
+  // ===================================================
+
+  else {
+
+    if (ultimoMovimento == 0) {
+
+      // Último movimento foi para frente
+      motorEsquerdo(VELOCIDADE);
+      motorDireito(VELOCIDADE);
+
+      Serial.println("LINHA PERDIDA -> CONTINUANDO FRENTE");
+    }
+
+    else if (ultimoMovimento == 1) {
+
+      // Último movimento foi esquerda
+      pararEsquerdo();
+      motorDireito(VELOCIDADE_CURVA);
+
+      Serial.println("LINHA PERDIDA -> CONTINUANDO ESQUERDA");
+    }
+
+    else if (ultimoMovimento == 2) {
+
+      // Último movimento foi direita
+      motorEsquerdo(VELOCIDADE_CURVA);
+      pararDireito();
+
+      Serial.println("LINHA PERDIDA -> CONTINUANDO DIREITA");
+    }
+  }
+
+
+  // ===================================================
+  // MONITOR SERIAL
+  // ===================================================
+
+  Serial.print("A0 = ");
+  Serial.print(A0valor);
+
+  Serial.print(" | A1 = ");
+  Serial.print(A1valor);
+
+  Serial.print(" | E = ");
+  Serial.print(pretoEsquerdo ? "PRETO" : "BRANCO");
+
+  Serial.print(" | D = ");
+  Serial.println(pretoDireito ? "PRETO" : "BRANCO");
+
+  delay(20);
+}
 
 </code></pre>
 
